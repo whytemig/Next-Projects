@@ -1,4 +1,4 @@
-import RecipeList from "../resusablecomponents/RecipeLIst";
+import RecipeList from "../../resusablecomponents/RecipeLIst";
 
 async function fetchRecipes() {
   try {
