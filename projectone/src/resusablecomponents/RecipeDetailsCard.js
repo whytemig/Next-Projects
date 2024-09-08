@@ -15,7 +15,23 @@ export default function RecipeDetailsCard({ details }) {
           />
         </div>
         <div className="">
-          <h2>{details?.name}</h2>
+          <h2 className="text-3xl font-extrabold text-gray-950">
+            {details?.name}
+          </h2>
+          <div className=" gap-4 mt-5">
+            <p className="text-xl text-gray-700">{details?.mealType[0]}</p>
+          </div>
+          <div className="mt-5">
+            <p className="text-xl text-gray-800">{details?.cuisine}</p>
+          </div>
+          <div className="mt-5">
+            <h3 className="text-lg font-bold text-gray-700 ">Ingredients</h3>
+            <ul className="space-y-3 list-disc mt-4 pl-4 text-sm text-gray-700">
+              {details?.ingredients.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
