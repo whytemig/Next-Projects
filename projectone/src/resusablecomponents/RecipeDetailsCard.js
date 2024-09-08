@@ -6,9 +6,11 @@ export default function RecipeDetailsCard({ details }) {
       <div className="grid items-start grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="w-full lg:sticky top-0 sm:flex gap-2">
           <Image
+            priority
             width={100}
             height={100}
             src={details?.image}
+            alt={details?.name}
             className="w-4/5 rounded object-cover"
           />
         </div>

@@ -14,9 +14,10 @@ export default async function RecipeList({ recipes }) {
           ? recipes.map((recipe) => (
               <Link href={`/recipes/${recipe.id}`} key={recipe.id}>
                 <Card>
-                  <CardContent className="bg-white rounded-md overflow-hidden shadow-md cursor-pointer hover:scale-[1.1] transition-all">
+                  <CardContent className="bg-black rounded-md overflow-hidden shadow-md cursor-pointer hover:scale-[1.1] transition-all">
                     <div className="w-full aspect-w-16 aspect-h-8 lg:h-80">
                       <Image
+                        priority
                         className="w-full h-full object-cover object-top"
                         src={recipe.image}
                         width={100}
