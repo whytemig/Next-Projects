@@ -5,6 +5,6 @@ const blogSchema = new mongoose.Schema({
   description: String,
 });
 
-const Blog = mongoose.models.Blog || mongoose.model("blog", blogSchema);
+const Blog = mongoose.models.Blog || mongoose.model("Blog", blogSchema);
 
 export default Blog;
