@@ -11,6 +11,7 @@
   "dependencies": {
     "@eslint/config-array": "^0.18.0",
     "@eslint/object-schema": "^2.1.4",
+    "mongoose": "^8.6.1",
     "next": "14.2.8",
     "react": "^18",
     "react-dom": "^18"
