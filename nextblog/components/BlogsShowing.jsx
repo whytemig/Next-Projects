@@ -6,7 +6,10 @@ import DialogModal from "./DialogModal";
 export default function BlogsShowing() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [blogsAdded, setBlogsAdded] = useState([]);
+  const [blogsAdded, setBlogsAdded] = useState({
+    title: "",
+    description: "",
+  });
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-700 p-6 gap-6">
@@ -16,6 +19,7 @@ export default function BlogsShowing() {
         loading={loading}
         setLoading={setLoading}
         setBlogsAdded={setBlogsAdded}
+        blogsAdded={blogsAdded}
       />
 
       <div>

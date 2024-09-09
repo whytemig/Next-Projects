@@ -13,7 +13,9 @@ export async function POST(request) {
 
     const blogValidate = z
       .object({
-        title: z.string().min(6, { message: "Title is required!" }),
+        title: z
+          .string()
+          .min(3, { message: "Title should be more than 3 characters!" }),
         description: z.string().min(6, { message: "Title is required!" }),
       })
       .safeParse({ title, description });
