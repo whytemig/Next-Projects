@@ -38,6 +38,8 @@ export default function DialogModal({
         title: data?.data.title,
         description: data?.data.description,
       });
+      setBlogsAdded({ title: "", description: "" });
+      setOpen(false);
     } catch (error) {
       setBlogsAdded({ title: "", description: "" });
     } finally {
@@ -89,7 +91,7 @@ export default function DialogModal({
           </div>
           <DialogFooter>
             <Button type="button" onClick={postBlog}>
-              Add
+              {loading ? "Saving" : "Add"}
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import DialogModal from "./DialogModal";
+import BlogOverview from "./BlogOverview";
 
-export default function BlogsShowing() {
+export default function BlogsShowing({ blogList }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [blogsAdded, setBlogsAdded] = useState({
@@ -24,6 +25,7 @@ export default function BlogsShowing() {
 
       <div>
         <h2 className="font-bold text-3xl text-slate-300">List of Blogs</h2>
+        <BlogOverview blogList={blogList} />
       </div>
     </div>
   );
