@@ -6,6 +6,7 @@ export default function SubmitForm() {
 
   return (
     <button
+      disabled={pending}
       type="submit"
       className="w-full bg-indigo-500 text-white font-bold py-2 rounded-lg hover:bg-indigo-600 transition duration-300"
     >
