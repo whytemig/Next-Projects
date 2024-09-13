@@ -9,8 +9,9 @@ import {
 
 const { auth } = NextAuth(authConfig);
 
-export default auth(async function (req) {
+export default auth(function middleware(req): Response | null {
   // Your custom middleware logic goes here
+
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
 
