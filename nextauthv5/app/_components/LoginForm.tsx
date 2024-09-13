@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
+import { loginAction } from "@/actions/login";
 
 export default function LoginForm() {
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -30,7 +31,7 @@ export default function LoginForm() {
 
   //submit handle
   function onSubmit(values: z.infer<typeof loginSchema>) {
-    console.log("working: ", values);
+    loginAction(values);
   }
   return (
     <CardWrapper
