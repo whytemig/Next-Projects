@@ -5,7 +5,7 @@ const ProtectedSettings = async () => {
     <div>
       ProtectedSettings
       <h2>
-        {JSON.stringify(session)}
+        {JSON.stringify(session?.user)}
         <form
           action={async () => {
             "use server";

@@ -14,6 +14,14 @@ declare module "@auth/core" {
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
+    // async signIn({ user }) {
+    //   const existingUser = await getUserById(user.id as string);
+    //   if (!existingUser || !existingUser?.emailVerified) {
+    //     return false;
+    //   }
+
+    //   return true;
+    // },
     async jwt({ token }) {
       if (!token) return token;
       if (token.sub) {
@@ -32,7 +40,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.id = token.sub;
       }
       if (token.role && session.user) {
-        session.user.role = token.role;
+        session.user.role = token.role as "ADMIN" | "USER";
       }
       return session;
     },
