@@ -40,8 +40,7 @@ export default function LoginForm() {
     setErrors("");
     startTransition(() =>
       loginAction(values).then((data) => {
-        setErrors(data.error);
-        setSuccess(data.success);
+        setErrors(data?.error);
       })
     );
   }
