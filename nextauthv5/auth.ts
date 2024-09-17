@@ -1,8 +1,16 @@
-import NextAuth from "next-auth";
+import NextAuth, { type DefaultSession } from "next-auth";
 import authConfig from "./auth.config";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "./lib/db";
 import { getUserById } from "./data/user";
+
+declare module "@auth/core" {
+  interface Session {
+    user: {
+      role: "ADMIN" | "USER";
+    } & DefaultSession["user"];
+  }
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
