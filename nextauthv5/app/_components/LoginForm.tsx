@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useTransition } from "react";
+import { useSearchParams } from "next/navigation";
 import CardWrapper from "./CardWrapper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -24,6 +25,11 @@ export default function LoginForm() {
   const [isPending, startTransition] = useTransition();
   const [errors, setErrors] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email already in used"
+      : "";
 
   //useForm hook
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -93,7 +99,7 @@ export default function LoginForm() {
           </div>
           {/* COME BACK WITH THESE ERRORS */}
           <FormSuccess message={success} />
-          <FormError message={errors} />
+          <FormError message={errors || urlError} />
           <Button type="submit" className="w-full" disabled={isPending}>
             Login
           </Button>
