@@ -30,14 +30,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   callbacks: {
-    // async signIn({ user }) {
-    //   const existingUser = await getUserById(user.id as string);
-    //   if (!existingUser || !existingUser?.emailVerified) {
-    //     return false;
-    //   }
+    async signIn({ user, account }) {
+      //Allow OAuth without email verification
+      if (account?.provider !== "credentials") return true;
 
-    //   return true;
-    // },
+      const existingUser = await getUserById(user.id as string);
+
+      //prevent signIn with email verified
+      if (!existingUser?.emailVerified) return false;
+
+      return true;
+    },
     async jwt({ token }) {
       if (!token) return token;
       if (token.sub) {
