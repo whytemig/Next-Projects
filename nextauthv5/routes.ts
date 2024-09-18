@@ -6,7 +6,11 @@ export const publicRoutes: string[] = ["/"];
 /**
  * Private Routes - redirect logged in users to settings page
  */
-export const authRoutes: string[] = ["/auth/login", "/auth/register"];
+export const authRoutes: string[] = [
+  "/auth/login",
+  "/auth/register",
+  "/auth/error",
+];
 
 // prefix for Authentification routes
 export const apiAuthPrefix: string = "/api/auth";
