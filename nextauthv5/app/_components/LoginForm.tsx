@@ -47,6 +47,7 @@ export default function LoginForm() {
     startTransition(() =>
       loginAction(values).then((data) => {
         setErrors(data?.error);
+        setSuccess(data?.success);
       })
     );
   }
