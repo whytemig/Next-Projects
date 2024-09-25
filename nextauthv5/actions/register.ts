@@ -6,6 +6,7 @@ import prisma from "@/lib/db";
 import { z } from "zod";
 import { getUserByEmail } from "@/data/user";
 import { generateToken } from "@/data/tokens";
+import { sendVerificationEmail } from "@/lib/mail";
 
 export const registerAction = async (
   values: z.infer<typeof registerSchema>
@@ -36,6 +37,6 @@ export const registerAction = async (
 
   //After testing send verification token to email
   const verifiedToken = await generateToken(email);
-
+  await sendVerificationEmail(verifiedToken.email, verifiedToken.token);
   return { success: "Confirmation Email Sent!" };
 };

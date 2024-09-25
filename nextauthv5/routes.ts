@@ -1,7 +1,7 @@
 /**
  * Public Routes
  */
-export const publicRoutes: string[] = ["/"];
+export const publicRoutes: string[] = ["/", "/auth/new-verification"];
 
 /**
  * Private Routes - redirect logged in users to settings page
@@ -10,6 +10,7 @@ export const authRoutes: string[] = [
   "/auth/login",
   "/auth/register",
   "/auth/error",
+  "/auth/reset",
 ];
 
 // prefix for Authentification routes
