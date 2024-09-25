@@ -10,6 +10,7 @@ export const authRoutes: string[] = [
   "/auth/login",
   "/auth/register",
   "/auth/error",
+  "/auth/reset",
 ];
 
 // prefix for Authentification routes
