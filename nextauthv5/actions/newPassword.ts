@@ -1,6 +1,6 @@
 "use server";
 
-import { generateResetPasswordToken } from "@/data/tokens";
+import { getPasswordRestToken } from "@/data/passwordresettoken";
 import { getUserByEmail } from "@/data/user";
 import prisma from "@/lib/db";
 import { ResetPasswordSchema } from "@/schemas";
@@ -23,7 +23,7 @@ export const newPassword = async (
 
   const { password } = validateInput.data;
 
-  const existingToken = await generateResetPasswordToken(token);
+  const existingToken = await getPasswordRestToken(token);
 
   if (!existingToken) {
     return { error: "Invalid Token" };
