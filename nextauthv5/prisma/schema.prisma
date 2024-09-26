@@ -83,7 +83,7 @@ model TwoFactorToken{
 }
 
 model TwoFactorConfirm{
-  id String @default(cuid())
+  id String @default(cuid()) @id
   userId String @unique
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

@@ -13,10 +13,15 @@ export default auth(function middleware(req): Response | null {
   // Your custom middleware logic goes here
 
   const { nextUrl } = req;
+  //checking authentication of User.
+  //(BOOLEAN)
   const isLoggedIn = !!req.auth;
 
+  //does pathname starts with "/api/auth/"
   const isAPIAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
+  //does pathname sarts with the public routes
   const publicRoute = publicRoutes.includes(nextUrl.pathname);
+  //does pathname begins with auth path
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
   if (isAPIAuthRoute) {
