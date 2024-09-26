@@ -26,6 +26,7 @@ export default function LoginForm() {
   const [isPending, startTransition] = useTransition();
   const [errors, setErrors] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
+  const [showTwoFactor, setShowTwoFactor] = useState<boolean>(false);
   const searchParams = useSearchParams();
   const urlError =
     searchParams.get("error") === "OAuthAccountNotLinked"
@@ -47,8 +48,17 @@ export default function LoginForm() {
     setErrors("");
     startTransition(() =>
       loginAction(values).then((data) => {
-        setErrors(data?.error);
-        setSuccess(data?.success);
+        if (data?.error) {
+          form.reset();
+          setErrors(data?.error);
+        }
+        if (data?.success) {
+          form.reset();
+          setSuccess(data?.success);
+        }
+        if (data?.twoFactor) {
+          setShowTwoFactor(true);
+        }
       })
     );
   }
@@ -62,51 +72,78 @@ export default function LoginForm() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isPending}
-                      {...field}
-                      placeholder="example@email.com"
-                      type="email"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isPending}
-                      {...field}
-                      placeholder="**********"
-                      type="password"
-                    />
-                  </FormControl>
-                  <Button size="sm" variant="link" className="px-0 font-normal">
-                    <Link href="/auth/reset">Forgot Password</Link>
-                  </Button>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {showTwoFactor && (
+              <FormField
+                control={form.control}
+                name="code"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isPending}
+                        {...field}
+                        placeholder="Six Digits"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+            {!showTwoFactor && (
+              <>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={isPending}
+                          {...field}
+                          placeholder="example@email.com"
+                          type="email"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={isPending}
+                          {...field}
+                          placeholder="**********"
+                          type="password"
+                        />
+                      </FormControl>
+                      <Button
+                        size="sm"
+                        variant="link"
+                        className="px-0 font-normal"
+                      >
+                        <Link href="/auth/reset">Forgot Password</Link>
+                      </Button>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+            )}
           </div>
           {/* COME BACK WITH THESE ERRORS */}
           <FormSuccess message={success} />
           <FormError message={errors || urlError} />
           <Button type="submit" className="w-full" disabled={isPending}>
-            Login
+            {showTwoFactor ? "Confirm" : "Login"}
           </Button>
         </form>
       </Form>
