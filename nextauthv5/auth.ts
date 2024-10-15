@@ -6,7 +6,7 @@ import { getUserById } from "./data/user";
 import { getTwoFactorTokenById } from "./data/twofactorconfirmation";
 
 declare module "@auth/core" {
-  interface Session {
+  export interface Session {
     user: {
       role: "ADMIN" | "USER";
     } & DefaultSession["user"];
@@ -63,6 +63,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         token.role = existingUser.role;
+        token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
       }
 
       return token;
@@ -73,6 +74,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       if (token.role && session.user) {
         session.user.role = token.role as "ADMIN" | "USER";
+      }
+      if (session.user) {
+        session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
       }
       return session;
     },
