@@ -3,6 +3,7 @@ import authConfig from "./auth.config";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "./lib/db";
 import { getUserById } from "./data/user";
+import { getTwoFactorTokenById } from "./data/twofactorconfirmation";
 
 declare module "@auth/core" {
   interface Session {
@@ -38,6 +39,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       //prevent signIn with email verified
       if (!existingUser?.emailVerified) return false;
+
+      if (existingUser?.isTwoFactorEnabled) {
+        const twoFactorTokenConfirm = await getTwoFactorTokenById(
+          existingUser.id
+        );
+
+        if (!twoFactorTokenConfirm) return false;
+
+        await prisma.twoFactorConfirm.delete({
+          where: { id: twoFactorTokenConfirm.id },
+        });
+      }
 
       return true;
     },
